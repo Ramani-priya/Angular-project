@@ -18,7 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
-
+import { PromotionService } from './services/promotion.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +41,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     MatButtonModule,
     AppRoutingModule
   ],
-  providers: [DishService],
+  providers: [DishService, PromotionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

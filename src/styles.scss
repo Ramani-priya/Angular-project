@@ -15,7 +15,7 @@ $accent-color: #FFC107;
 $primary-text-color: #212121;
 $secondary-text-color: #757575;
 $divider-color: #BDBDBD;
-
+$background-moredark: #4527A0;
 @mixin zero-margin($pad-up-down, $pad-left-right) {
   margin: 0px auto;
   padding: $pad-up-down $pad-left-right;
@@ -31,7 +31,9 @@ body {
   display: flex;
   font-family: Roboto, sans-serif;
 }
-
+.Active{
+  background-color:$background-moredark;
+}
 .background-primary {
   background-color: $background-dark !important;
 }
