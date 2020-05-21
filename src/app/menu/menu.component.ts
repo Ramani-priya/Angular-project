@@ -4,15 +4,15 @@ import { DishService } from '../services/dish.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  
+  dishes: Dish[];
   selectedDish : Dish;
   constructor(private dishService:DishService) { }
   
   ngOnInit() {
-    dishes: Dish[] = this.dishService.getDishes();
+   this.dishes = this.dishService.getDishes();
   }
   onSelect(dish: Dish) {
     this.selectedDish = dish;
