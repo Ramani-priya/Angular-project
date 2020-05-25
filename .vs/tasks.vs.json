@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-shared",
+      "appliesTo": "src/app/shared/",
+      "type": "launch"
+    }
+  ]
+}
