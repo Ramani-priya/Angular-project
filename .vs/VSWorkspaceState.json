@@ -3,7 +3,7 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\about",
+    "\\src\\app\\contact",
     "\\src\\app\\header",
     "\\src\\app\\home",
     "\\src\\app\\login",
@@ -11,6 +11,6 @@
     "\\src\\app\\services",
     "\\src\\app\\shared"
   ],
-  "SelectedNode": "\\src\\app\\about\\about.component.html",
+  "SelectedNode": "\\src\\app\\app.module.ts",
   "PreviewInSolutionExplorer": false
 }
