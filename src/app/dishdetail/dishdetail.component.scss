@@ -1,12 +1,17 @@
 mat-card-content{
 overflow:hidden;
 font-size:small;
+padding:0px;
 }
-
+.mat-button{
+  width:10px; 
+  font-size:12px;
+  margin:0px;
+}
 
 .mat-list .mat-list-item .mat-line {
   font-size: 12px;
-  padding:0px;
+  padding: 0px;
 }
 .mat-list
 {

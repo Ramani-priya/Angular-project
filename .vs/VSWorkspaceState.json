@@ -3,14 +3,14 @@
     "",
     "\\src",
     "\\src\\app",
+    "\\src\\app\\about",
     "\\src\\app\\dishdetail",
-    "\\src\\app\\footer",
     "\\src\\app\\home",
     "\\src\\app\\login",
     "\\src\\app\\menu",
     "\\src\\app\\services",
     "\\src\\app\\shared"
   ],
-  "SelectedNode": "\\src\\app\\services\\dish.service.ts",
+  "SelectedNode": "\\src\\app\\about\\about.component.ts",
   "PreviewInSolutionExplorer": false
 }
