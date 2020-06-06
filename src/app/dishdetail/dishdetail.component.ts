@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, Inject} from '@angular/core';
 import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
-import { DISHES } from '../shared/dishes';
 import { Comment } from '../shared/comment';
 import { FormBuilder, FormGroup, Validators, FormControl, NgForm } from '@angular/forms';
 import { Params, ActivatedRoute } from '@angular/router';
@@ -25,13 +24,10 @@ export class DishdetailComponent implements OnInit {
   flag: boolean = false;
   cflag: boolean = false;
   dflag: boolean = false;
-  dishes: Dish[] = DISHES;
-  today = new Date();
-  jstoday = '';
+  dishes: Dish[];
   commentForm: FormGroup;
   userComment:Comment = { author: '', comment: '', rating: 5, date: '' };
   userCommentNew: Comment = { author: '', comment: '', rating: 5, date: '' };
-  myDate= new Date();
 
   formErrors = {
     'author': '',
@@ -49,12 +45,12 @@ export class DishdetailComponent implements OnInit {
 
     },
   };
-  constructor(private location : Location,
+  constructor(private location: Location,
     private dishservice: DishService,
-    private route: ActivatedRoute, private formbuilder: FormBuilder, private datePipe: DatePipe)
+    private route: ActivatedRoute, private formbuilder: FormBuilder, private datePipe: DatePipe,
+    @Inject('BaseURL') private BaseURL)
   {
     this.createForm();
-    this.userCommentNew.date = new Date().toISOString();
 
     //this.userCommentNew.date = formatDate(this.today, 'dd-MM-yyyy', 'en-US', '+0530');
   }
@@ -113,16 +109,17 @@ export class DishdetailComponent implements OnInit {
 
   onSubmit() {
     
-    this.userComment = this.commentForm.value;
+    this.userCommentNew = this.commentForm.value;
     this.userCommentNew.author = this.userComment.author;
     this.userCommentNew.comment = this.userComment.comment;
     this.userCommentNew.rating = this.userComment.rating;
+    this.userCommentNew.date = new Date().toISOString();
     this.dish.comments.push(this.userCommentNew);
     this.commentForm.reset({
       Author: '',
       comment: '',
     });
-    this.userComment = { author: '', comment: '', rating : 5, date: '' };
+    this.userCommentNew = { author: '', comment: '', rating : 5, date: '' };
     this.flag = true;
     this.cflag = false;
     this.commentFormDirective.resetForm();

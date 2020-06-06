@@ -11,6 +11,6 @@
     "\\src\\app\\services",
     "\\src\\app\\shared"
   ],
-  "SelectedNode": "\\src\\app\\shared\\usercomment.ts",
+  "SelectedNode": "\\src\\app\\menu\\menu.component.ts",
   "PreviewInSolutionExplorer": false
 }
