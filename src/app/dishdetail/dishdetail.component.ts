@@ -9,6 +9,7 @@ import { switchMap } from 'rxjs/operators';
 import { MatSlider } from '@angular/material';
 import { DatePipe } from '@angular/common';
 
+
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
@@ -25,6 +26,7 @@ export class DishdetailComponent implements OnInit {
   cflag: boolean = false;
   dflag: boolean = false;
   dishes: Dish[];
+  errMess: string;
   commentForm: FormGroup;
   userComment:Comment = { author: '', comment: '', rating: 5, date: '' };
   userCommentNew: Comment = { author: '', comment: '', rating: 5, date: '' };
@@ -58,7 +60,7 @@ export class DishdetailComponent implements OnInit {
   ngOnInit() {
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
     this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); });
+      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); },errmsg=>this.errMess=errmsg);
 
   }
 
@@ -78,7 +80,7 @@ export class DishdetailComponent implements OnInit {
       comment: ['', Validators.required],
     });
     this.commentForm.valueChanges
-      .subscribe(data => this.onValueChanged(data));
+      .subscribe(data => this.onValueChanged(data), errmess => this.errMsg=errmess);
 
     this.onValueChanged(); // (re)set validation messages now
 
