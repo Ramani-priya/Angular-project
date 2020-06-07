@@ -51,15 +51,7 @@
           <p matLine>{{userComment.rating}} Stars</p>
           <p matLine *ngIf="!formErrors.author">--{{userComment.author}}</p>
         </mat-list-item>
-        <!----
-        <mat-list-item *ngIf="flag && !cflag">
-         // <p matLine>{{userCommentNew.comment}}</p>
-         //<p matLine>{{userCommentNew.rating}} Stars</p>
-        //<p matLine>--{{userCommentNew.author}}</p>
-        //<p matLine> {{userCommentNew.date | date}}</p>
-        </mat-list-item>
-      -->
-
+       
       </mat-card-content>
     </mat-list>
     <div [hidden]="dish || errMess">
@@ -76,7 +68,7 @@
           <mat-error *ngIf="formErrors.author">{{formErrors.author}}</mat-error>
         </mat-form-field>
       </p>
-      <mat-slider thumbLabel tickInterval="1" min="1" max="5" [(value)]="userComment.rating"></mat-slider>
+      <mat-slider #slider thumbLabel tickInterval="1" min="1" max="5" [(value)]="userComment.rating"></mat-slider>
       <p>
         <mat-form-field class="full-width">
           <textarea matInput formControlName="comment" [(ngModel)]="userComment.comment" placeholder="Your Comment" rows=12 columns=40 required></textarea>

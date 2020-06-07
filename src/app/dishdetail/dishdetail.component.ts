@@ -27,9 +27,10 @@ export class DishdetailComponent implements OnInit {
   dflag: boolean = false;
   dishes: Dish[];
   errMess: string;
+  dishcopy: Dish;
   commentForm: FormGroup;
   userComment:Comment = { author: '', comment: '', rating: 5, date: '' };
-  userCommentNew: Comment = { author: '', comment: '', rating: 5, date: '' };
+ 
 
   formErrors = {
     'author': '',
@@ -54,13 +55,12 @@ export class DishdetailComponent implements OnInit {
   {
     this.createForm();
 
-    //this.userCommentNew.date = formatDate(this.today, 'dd-MM-yyyy', 'en-US', '+0530');
   }
 
   ngOnInit() {
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
     this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); },errmsg=>this.errMess=errmsg);
+      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); },errmsg=>this.errMess=errmsg);
 
   }
 
@@ -80,7 +80,7 @@ export class DishdetailComponent implements OnInit {
       comment: ['', Validators.required],
     });
     this.commentForm.valueChanges
-      .subscribe(data => this.onValueChanged(data), errmess => this.errMsg=errmess);
+      .subscribe(data => this.onValueChanged(data), errmess => this.errMess=errmess);
 
     this.onValueChanged(); // (re)set validation messages now
 
@@ -110,18 +110,24 @@ export class DishdetailComponent implements OnInit {
   }
 
   onSubmit() {
-    
-    this.userCommentNew = this.commentForm.value;
-    this.userCommentNew.author = this.userComment.author;
-    this.userCommentNew.comment = this.userComment.comment;
-    this.userCommentNew.rating = this.userComment.rating;
-    this.userCommentNew.date = new Date().toISOString();
-    this.dish.comments.push(this.userCommentNew);
+    this.flag = true;
+    this.userComment = this.commentForm.value;
+    this.userComment.date = new Date().toISOString();
+    this.dishcopy.comments.push(this.userComment);
+    this.dishservice.putDish(this.dishcopy)
+      .subscribe(dish => {
+        this.dish = dish; this.dishcopy = dish;
+      },
+        errmess => {
+        this.dish = null; this.dishcopy = null;
+          this.errMess = <any>errmess;
+        });
+    this.userComment = { author: '', comment: '', rating : 5, date: '' };
     this.commentForm.reset({
       Author: '',
-      comment: '',
+      comment: ''
     });
-    this.userCommentNew = { author: '', comment: '', rating : 5, date: '' };
+    
     this.flag = true;
     this.cflag = false;
     this.commentFormDirective.resetForm();
