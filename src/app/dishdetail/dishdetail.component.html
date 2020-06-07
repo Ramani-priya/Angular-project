@@ -5,7 +5,7 @@
      fxLayoutAlign.gt-md="space-around center"
      fxLayoutGap="10px"
      fxLayoutGap.xs="0">
-  <div fxFlex="55" *ngIf="dish">
+  <div fxFlex="55" *ngIf="dish" [@visibility]="visibility">
     <mat-card>
       <mat-card-header>
         <mat-card-title>
@@ -36,7 +36,7 @@
     </div>
   </div>
 
-  <mat-list *ngIf="dish">
+  <mat-list *ngIf="dish" [@visibility]="visibility">
     <mat-list>
       <mat-card-content fxFlex>
         <mat-list-item *ngFor="let i of dish.comments">
@@ -57,7 +57,7 @@
     <div [hidden]="dish || errMess">
       <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
     </div>
-    <div fxFlex *ngIf="errMess">
+    <div fxFlex *ngIf="errMess" >
       <h2>Error</h2>
       <h4>{{errMess}}</h4>
     </div>

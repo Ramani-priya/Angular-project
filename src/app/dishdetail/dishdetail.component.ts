@@ -8,12 +8,26 @@ import { Location } from '@angular/common';
 import { switchMap } from 'rxjs/operators';
 import { MatSlider } from '@angular/material';
 import { DatePipe } from '@angular/common';
-
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
   styleUrls: ['./dishdetail.component.scss'],
+  animations: [
+    trigger('visibility', [
+      state('shown', style({
+        transform: 'scale(1.0)',
+        opacity: 1
+      })),
+      state('hidden', style({
+        transform: 'scale(0.5)',
+        opacity: 0
+      })),
+      transition('* => *', animate('0.5s ease-in-out'))
+    ])
+  ],
+
   providers: [DatePipe]
 })
 export class DishdetailComponent implements OnInit {
@@ -30,8 +44,8 @@ export class DishdetailComponent implements OnInit {
   dishcopy: Dish;
   commentForm: FormGroup;
   userComment:Comment = { author: '', comment: '', rating: 5, date: '' };
- 
-
+  userCommentNew: Comment = { author: '', comment: '', rating: 5, date: '' };
+  visibility = 'shown';
   formErrors = {
     'author': '',
     'comment': ''
@@ -59,8 +73,8 @@ export class DishdetailComponent implements OnInit {
 
   ngOnInit() {
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
-    this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); },errmsg=>this.errMess=errmsg);
+    this.route.params.pipe(switchMap((params: Params) => { this.visibility = 'hidden'; return this.dishservice.getDish(params['id']); }))
+      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); this.visibility = 'shown';},errmsg=>this.errMess=errmsg);
 
   }
 
@@ -111,9 +125,14 @@ export class DishdetailComponent implements OnInit {
 
   onSubmit() {
     this.flag = true;
-    this.userComment = this.commentForm.value;
-    this.userComment.date = new Date().toISOString();
-    this.dishcopy.comments.push(this.userComment);
+    this.userCommentNew = this.commentForm.value;
+    this.userCommentNew.comment = this.userComment.comment;
+    this.userCommentNew.author = this.userComment.author;
+    this.userCommentNew.rating = this.userComment.rating;
+    this.userCommentNew.date = new Date().toISOString();
+
+    this.dishcopy.comments.push(this.userCommentNew);
+    
     this.dishservice.putDish(this.dishcopy)
       .subscribe(dish => {
         this.dish = dish; this.dishcopy = dish;
