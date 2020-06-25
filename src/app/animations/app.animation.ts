@@ -33,3 +33,4 @@ export function expand() {
       animate('200ms ease-in', style({ opacity: 1, transform: 'translateX(0)' }))
     ])
   ]);
+}

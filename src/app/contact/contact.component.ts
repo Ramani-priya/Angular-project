@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
 import { visibility } from '../animations/app.animation';
 import { flyInOut, expand } from '../animations/app.animation';
+import { FeedbackService } from '../services/feedback.service';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -22,7 +23,15 @@ export class ContactComponent implements OnInit {
   @ViewChild('fform') feedbackFormDirective;
   feedbackForm: FormGroup;
   feedback: Feedback;
+  feedbacknew: Feedback=null;
+  feedbacks: Feedback[];
+  feedbackCopy: Feedback;
   contactType = ContactType;
+  
+  uploadflag = false;
+  flag = true;
+  errMess: string;
+  id = -1;
   formErrors = {
     'firstname': '',
     'lastname': '',
@@ -52,7 +61,8 @@ export class ContactComponent implements OnInit {
   };
 
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private feedbackservice: FeedbackService) {
     this.createForm();
   }
    
@@ -95,7 +105,20 @@ export class ContactComponent implements OnInit {
   }
 
   onSubmit() {
+    this.flag = false;
     this.feedback = this.feedbackForm.value;
+    this.feedbackservice.submitFeedback(this.feedback)
+      .subscribe(feedback => {
+        this.feedbacknew = feedback;
+        this.uploadflag = true;
+      },
+        errmess => {
+          this.feedback = null;
+          this.errMess = <any>errmess;
+        });
+
+    this.displayFeedback();
+
     console.log(this.feedback);
     this.feedbackForm.reset({
       firstname: '',
@@ -106,7 +129,13 @@ export class ContactComponent implements OnInit {
       contacttype: 'None',
       message: ''
     });
-    this.feedbackFormDirective.resetForm();
-  }
 
+    this.feedbackFormDirective.resetForm();
+    
+  }
+  displayFeedback() {
+    setTimeout(() => {    //<<<---    using ()=> syntax
+      this.uploadflag = false; this.flag = true;
+    }, 5000);
+  }
 }
