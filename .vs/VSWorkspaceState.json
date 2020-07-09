@@ -2,15 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\app",
-    "\\src\\app\\about",
-    "\\src\\app\\animations",
-    "\\src\\app\\directives",
-    "\\src\\app\\login",
-    "\\src\\app\\menu",
-    "\\src\\app\\services",
-    "\\src\\app\\shared"
+    "\\src\\app"
   ],
-  "SelectedNode": "\\package.json",
+  "SelectedNode": "\\src\\test.ts",
   "PreviewInSolutionExplorer": false
 }
