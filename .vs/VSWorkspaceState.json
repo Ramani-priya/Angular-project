@@ -2,8 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\app"
+    "\\src\\app\\header",
+    "\\src\\app\\home",
+    "\\src\\app\\services",
+    "\\src\\app\\shared",
+    "\\src\\assets",
+    "\\src\\assets\\images"
   ],
-  "SelectedNode": "\\src\\test.ts",
+  "SelectedNode": "\\src\\assets\\images\\alberto.jpg",
   "PreviewInSolutionExplorer": false
 }
