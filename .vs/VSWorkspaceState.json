@@ -1,14 +1,14 @@
 {
   "ExpandedNodes": [
     "",
+    "\\conFusion",
+    "\\e2e",
     "\\src",
-    "\\src\\app\\header",
-    "\\src\\app\\home",
-    "\\src\\app\\services",
-    "\\src\\app\\shared",
-    "\\src\\assets",
-    "\\src\\assets\\images"
+    "\\src\\app",
+    "\\src\\app\\about",
+    "\\src\\app\\animations",
+    "\\src\\app\\app-routing"
   ],
-  "SelectedNode": "\\src\\assets\\images\\alberto.jpg",
+  "SelectedNode": "\\src\\app\\contact",
   "PreviewInSolutionExplorer": false
 }
